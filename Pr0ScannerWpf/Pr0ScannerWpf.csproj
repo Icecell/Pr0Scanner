@@ -156,4 +156,7 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Tesseract.3.3.0\build\Tesseract.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Tesseract.3.3.0\build\Tesseract.targets'))" />
   </Target>
+  <PropertyGroup>
+    <PostBuildEvent>XCOPY "$(SolutionDir)Pr0ScannerWpf\tessdata" "$(TargetDir)tessdata" /S /Y /i</PostBuildEvent>
+  </PropertyGroup>
 </Project>

@@ -130,7 +130,7 @@ namespace Pr0ScannerWpf
             {
                 new TesseractEngine(scanner.Settings.TesseractEngineDataFolder, "eng", EngineMode.Default).Dispose();
             }
-            catch (System.Exception e)
+            catch (System.Exception)
             {
                 MessageBox.Show("Fehler beim Starten von Tesseract. Ist der Ordner \"tessdata\" im gleichen Ordner wie die exe?", "Fehler", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
