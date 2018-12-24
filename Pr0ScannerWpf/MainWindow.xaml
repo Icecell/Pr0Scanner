@@ -1,0 +1,82 @@
+﻿<Window x:Name="mainWindow" x:Class="Pr0ScannerWpf.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Pr0ScannerWpf"
+        mc:Ignorable="d"
+        Title="Pr0gramm Scanner" Foreground="#F5F7F6" Height="350" Width="645.8" Closing="MainWindow_Closing" Background="#FF161618">
+    <Grid >
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <GroupBox Grid.Column="0" Grid.Row="1" Header="Steuerung" Margin="5,5,5,5">
+            <StackPanel>
+                <Button x:Name="startBtn" MinWidth="80" Margin="5,5,5,5" Content="Starten" Click="StartBtn_Click" />
+
+                <Button x:Name="clearBtn" MinWidth="80" Margin="5,5,5,5" Content="Löschen" Click="ClearBtn_Click" />
+
+                <TextBlock Text="Status:" Margin="5,5,5,0" />
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock x:Name="statusTextBlock" Text="Angehalten" Margin="5,0,5,5" />
+                </StackPanel>
+
+                <TextBlock Text="Gesamt:" Margin="5,5,5,0" />
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock x:Name="sumTextBlock" Text="0" Margin="5,0,1,5" />
+                    <TextBlock Text="€" />
+                </StackPanel>
+
+                <TextBlock Text="Bilder übrig:" Margin="5,5,5,0" />
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock x:Name="picsTodoTextBlock" Text="0" Margin="5,0,5,5" />
+                </StackPanel>
+
+                <TextBlock Text="Bilder fertig:" Margin="5,5,5,0" />
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock x:Name="picsDoneTextBlock" Text="0" Margin="5,0,5,5" />
+                </StackPanel>
+
+                <TextBlock Text="Bilder fehler:" Margin="5,5,5,0" />
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock x:Name="picsErrorTextBlock" Text="0" Margin="5,0,5,5" />
+                </StackPanel>
+
+            </StackPanel>
+        </GroupBox>
+
+        <GroupBox Grid.Column="1" Grid.Row="0" Header="Ausgabe" Margin="5,5,5,5">
+            <ScrollViewer>
+                <WrapPanel x:Name="outputWrapPanel">
+
+                    <StackPanel Margin="2" Background="#FF00FF00">
+                        <Image Width="150" Height="150" Source="pics\713ab3c69a66c6e9.png" MouseLeftButtonUp="Image_MouseLeftButtonUp" MouseRightButtonUp="Image_MouseRightButtonUp" Stretch="UniformToFill" RenderTransformOrigin="0.887,0.223" HorizontalAlignment="Center" VerticalAlignment="Center" UseLayoutRounding="False" />
+                        <TextBlock Text="15€" HorizontalAlignment="Center" />
+                    </StackPanel>
+
+                    <StackPanel Margin="2" Background="Red">
+                        <Image Width="150" Height="150" Source="pics\0627bb1302086875.png" MouseLeftButtonUp="Image_MouseLeftButtonUp" MouseRightButtonUp="Image_MouseRightButtonUp" Stretch="UniformToFill" />
+                        <TextBlock Text="15€" HorizontalAlignment="Center" />
+                    </StackPanel>
+
+                    <StackPanel Margin="2">
+                        <StackPanel.Background>
+                            <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ActiveBorderColorKey}}"/>
+                        </StackPanel.Background>
+                        <Image Width="150" Height="150" Source="pics\0f0bb75ded88896c.png" MouseLeftButtonUp="Image_MouseLeftButtonUp" MouseRightButtonUp="Image_MouseRightButtonUp" Stretch="UniformToFill" />
+                        <TextBlock Text="15€" HorizontalAlignment="Center" />
+                    </StackPanel>
+
+
+
+                </WrapPanel>
+            </ScrollViewer>
+        </GroupBox>
+
+    </Grid>
+</Window>
