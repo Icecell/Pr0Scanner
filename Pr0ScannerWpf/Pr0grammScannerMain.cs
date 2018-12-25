@@ -52,12 +52,13 @@ namespace Pr0grammScanner
         {
             string topString = Settings.Top ? "promoted=1&" : "";
             string olderString = older > 0 ? $"older={older}&" : "";
-            string tags = HttpUtility.UrlEncode(Settings.SearchTag).Replace("%20", "+");
-            HttpWebRequest httpWebRequest = (HttpWebRequest)HttpWebRequest.Create($"https://pr0gramm.com/api/items/get?flags=1&{topString}{olderString}tags={tags}");
-            HttpWebResponse httpWebReponse = (HttpWebResponse)httpWebRequest.GetResponse();
-            var responseString = new StreamReader(httpWebReponse.GetResponseStream()).ReadToEnd();
-            httpWebReponse.Dispose();
-            return JObject.Parse(responseString);
+            string tagsString = HttpUtility.UrlEncode(Settings.SearchTag).Replace("%20", "+");
+            string requestUrl = $"https://pr0gramm.com/api/items/get?flags=1&{topString}{olderString}tags={tagsString}";
+            using (HttpWebResponse httpWebReponse = (HttpWebResponse)HttpWebRequest.Create(requestUrl).GetResponse())
+            {
+                var responseString = new StreamReader(httpWebReponse.GetResponseStream()).ReadToEnd();
+                return JObject.Parse(responseString);
+            }
         }
 
         private void fillJobQueue()
