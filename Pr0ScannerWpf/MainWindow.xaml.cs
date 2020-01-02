@@ -108,7 +108,7 @@ namespace Pr0ScannerWpf
 
             // Calculates result
             float sumValues = 0;
-            int picsError = 0;
+            int picsError = Worker.ExceptionWorkerCount;
             foreach (var wrapChild in this.outputWrapPanel.Children)
             {
                 if (wrapChild is StackPanel stack)

@@ -90,6 +90,7 @@
     <Compile Include="JobTextBlock.cs" />
     <Compile Include="ScannerStatus.cs" />
     <Compile Include="Settings.cs" />
+    <Compile Include="Tag.cs" />
     <Compile Include="Worker.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

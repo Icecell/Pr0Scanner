@@ -84,7 +84,7 @@ namespace Pr0grammScanner
                     {
                         var directUrl = $"https://img.pr0gramm.com/{imgUrl}";
                         var browserUrl = $"https://pr0gramm.com/new/{idOrPromoted}";
-                        jobQueue.Enqueue(new Job(directUrl, browserUrl));
+                        jobQueue.Enqueue(new Job(directUrl, browserUrl, idOrPromoted));
                     }
                 }
 
@@ -106,6 +106,7 @@ namespace Pr0grammScanner
         {
             ScannerStatus = ScannerStatus.Startup;
             Console.WriteLine("Startup");
+            Worker.ExceptionWorkerCount = 0;
             for (int i = 0; i < Settings.Threads; i++)
             {
                 TesseractEngine tesseractEngine = null;
