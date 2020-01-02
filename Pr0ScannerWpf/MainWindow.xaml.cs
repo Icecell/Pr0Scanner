@@ -23,13 +23,13 @@ namespace Pr0ScannerWpf
             InitializeComponent();
 
             dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
-            dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 500);
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 100);
             dispatcherTimer.Start();
 
             ClearBtn_Click(null, null);
         }
 
-        // Called in a 500ms period. Used to check scanner, calc results and add pics to GUI
+        // Called in a 100ms period. Used to check scanner, calc results and add pics to GUI
         private void dispatcherTimer_Tick(object sender, EventArgs e)
         {
             // Badly need the scanner
@@ -68,24 +68,30 @@ namespace Pr0ScannerWpf
                 var jobResult = new JobResult();
                 if(scanner.ResultQueue.TryDequeue(out jobResult))
                 {
-                    var panel = new StackPanel();
-                    panel.Margin = new Thickness(2);
+                    var panel = new StackPanel
+                    {
+                        Margin = new Thickness(2)
+                    };
 
-                    var image = new JobImage();
-                    image.Width = scanner.Settings.PreviewPicSize;
-                    image.Height = scanner.Settings.PreviewPicSize;
-                    image.Url = jobResult.Url;
+                    var image = new JobImage
+                    {
+                        Width = scanner.Settings.PreviewPicSize,
+                        Height = scanner.Settings.PreviewPicSize,
+                        Url = jobResult.Url,
+                        Source = Imaging.CreateBitmapSourceFromBitmap(jobResult.Bitmap),
+                        Cursor = Cursors.Hand,
+                        Stretch = Stretch.UniformToFill
+                    };
                     image.MouseLeftButtonUp += Image_MouseLeftButtonUp;
                     image.MouseRightButtonUp += Image_MouseRightButtonUp;
-                    image.Source = Imaging.CreateBitmapSourceFromBitmap(jobResult.Bitmap);
-                    image.Cursor = Cursors.Hand;
-                    image.Stretch = Stretch.UniformToFill;
                     jobResult.Bitmap.Dispose();
 
-                    var textBlock = new JobTextBlock();
-                    textBlock.Value = jobResult.Value;
-                    textBlock.Text = $"{jobResult.Value} €";
-                    textBlock.HorizontalAlignment = HorizontalAlignment.Center;
+                    var textBlock = new JobTextBlock
+                    {
+                        Value = jobResult.Value,
+                        Text = $"{jobResult.Value} €",
+                        HorizontalAlignment = HorizontalAlignment.Center
+                    };
 
                     panel.Children.Add(image);
                     panel.Children.Add(textBlock);
@@ -94,18 +100,22 @@ namespace Pr0ScannerWpf
                 }
             }
 
+            // Scroll to bottom if at bottom
+            if (this.outputScrollViewer.ScrollableHeight == this.outputScrollViewer.ContentVerticalOffset)
+            {
+                this.outputScrollViewer.ScrollToBottom();
+            }
+
             // Calculates result
             float sumValues = 0;
             int picsError = 0;
             foreach (var wrapChild in this.outputWrapPanel.Children)
             {
-                var stack = wrapChild as StackPanel;
-                if(stack != null)
+                if (wrapChild is StackPanel stack)
                 {
                     foreach (var stackChild in stack.Children)
                     {
-                        var textBlock = stackChild as JobTextBlock;
-                        if(textBlock != null)
+                        if (stackChild is JobTextBlock textBlock)
                         {
                             if (textBlock.Value >= scanner.Settings.MinValue && textBlock.Value <= scanner.Settings.MaxValue)
                                 sumValues += textBlock.Value;
@@ -213,8 +223,7 @@ namespace Pr0ScannerWpf
         // Open clicked pic in browser
         private void Image_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)
         {
-            var jobImage = sender as JobImage;
-            if(jobImage != null)
+            if (sender is JobImage jobImage)
             {
                 System.Diagnostics.Process.Start(jobImage.Url);
             }
@@ -223,16 +232,9 @@ namespace Pr0ScannerWpf
         // Remove senders parent from WrapPanel
         private void Image_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
         {
-            var image = sender as Image;
-            if (image != null)
+            if (sender is Image image && image.Parent is StackPanel stackPanel && stackPanel.Parent is WrapPanel wrapPanel)
             {
-                var stackPanel = image.Parent as StackPanel;
-                if (stackPanel != null)
-                {
-                    var wrapPanel = stackPanel.Parent as WrapPanel;
-                    if(wrapPanel != null)
-                        wrapPanel.Children.Remove(stackPanel);
-                }
+                wrapPanel.Children.Remove(stackPanel);
             }
         }
     }

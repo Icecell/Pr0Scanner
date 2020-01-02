@@ -53,7 +53,7 @@ namespace Pr0grammScanner
         public float GetScalingFactor() { return scalingFactor; }
         public void SetScalingFactor(float scalingFactor) { this.scalingFactor = scalingFactor; }
 
-        public string SearchTag { get; set; } = @"!d:2018:12 & (spendet | spenden)";
+        public string SearchTag { get; set; } = @"Affenhaus";
         public bool Top { get; set; } = false; // Set false to find "new" posts
         public int Threads { get; set; } = 4; // More threads, more CPU usage but faster processing
         public int MaxPics { get; set; } = 0; // 0 = no limit

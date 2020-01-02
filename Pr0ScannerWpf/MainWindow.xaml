@@ -51,7 +51,7 @@
         </GroupBox>
 
         <GroupBox Grid.Column="1" Grid.Row="0" Header="Ausgabe" Margin="5,5,5,5">
-            <ScrollViewer>
+            <ScrollViewer x:Name="outputScrollViewer">
                 <WrapPanel x:Name="outputWrapPanel">
 
                     <StackPanel Margin="2" Background="#FF00FF00">
