@@ -96,7 +96,23 @@ namespace Pr0ScannerWpf
                     panel.Children.Add(image);
                     panel.Children.Add(textBlock);
                     panel.Background = jobResult.Value >= scanner.Settings.MinValue && jobResult.Value <= scanner.Settings.MaxValue ? Brushes.DarkGreen : Brushes.Red;
-                    this.outputWrapPanel.Children.Add(panel);
+
+                    int indexToInsert = 0;
+                    for(int i = 0; i < this.outputWrapPanel.Children.Count; i++)
+                    {
+                        var childPanel = this.outputWrapPanel.Children[i] as Panel;
+                        var childPanelTextBlock = childPanel.Children[1] as JobTextBlock;
+                        indexToInsert = i;
+                        if (childPanelTextBlock.Value < textBlock.Value)
+                        {
+                            break;
+                        }
+                    }
+
+                    if (indexToInsert + 1 == this.outputWrapPanel.Children.Count)
+                        indexToInsert++;
+
+                    this.outputWrapPanel.Children.Insert(indexToInsert, panel);
                 }
             }
 
