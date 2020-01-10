@@ -7,7 +7,7 @@ Ein Linksklick auf das Bild öffnet die Quelle im Browser. Ein Rechtsklick lösc
 Die Texterkennung ist sehr rechenintensiv, deshalb laufen in der Standardeinstellung 4 Threads.
 Falls die Datei nicht vorhanden ist, wird sie beim ersten Start (Start-Button drücken) erstellt.
 
-Unter [Pr0ScannerWpf/Release1.0.zip](Pr0ScannerWpf/Release1.0.zip) befindet sich eine startbare Exe-Datei.
+Unter [Releases](https://github.com/Icecell/Pr0Scanner/releases/latest) befinden sich fertige Versionen, eine ZIP Datei die eine startbare .exe Datei enthält.
 
 Die Texterkennung erfolgt mit Hilfe von [Tesseract](https://de.wikipedia.org/wiki/Tesseract_(Software)).
 
